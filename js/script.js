@@ -1,11 +1,13 @@
 // Back end
 
-// pizza o
+// pizza object
 var Pizza = function () {
   this.size = "";
   this.toppings = [];
 };
 
+// get the total cost for size 
+// and toppings
 Pizza.prototype.Total = function() {
   var total = 0;
 
@@ -15,6 +17,8 @@ Pizza.prototype.Total = function() {
   return total;
 };
 
+// set the output for the both size
+// and topping.
 Pizza.prototype.display = function() {
   var output = "Size: ";
 
@@ -25,7 +29,7 @@ Pizza.prototype.display = function() {
   return output;
 }
 
-
+// return the cost of the pizza size
 Pizza.prototype.sizeCost = function() {
   if (this.size === "small") {
     return 8;
@@ -37,8 +41,9 @@ Pizza.prototype.sizeCost = function() {
   
 };
 
+// return the cost of the toppings cost.
+// the first two will be free.
 Pizza.prototype.toppingsCost = function() {
-
   if (this.toppings.length >= 3) {
     return (0.50 * (this.toppings.length - 2));
   } else {
@@ -46,10 +51,12 @@ Pizza.prototype.toppingsCost = function() {
   }
 };
 
+// add topping 
 Pizza.prototype.addToppings = function(toppings) {
     this.toppings.push(toppings);
 };
 
+// remove topping 
 Pizza.prototype.removeToppings = function(toppings) {
   for (var i = 0; i < this.toppings.length; i++) {
     if (this.toppings[i] === toppings) {
@@ -59,12 +66,18 @@ Pizza.prototype.removeToppings = function(toppings) {
   
 };
 
+// set goble array to help keep track
+// the pizza object
 var pie = [];
 
+// this will help what area in the array
+// to get the data.
 var at = 0;
 
 // front end
 
+// make the display to edit the front end 
+// with data
 var frontDisplay = function () {
   var total = 0;
   $(".remove").remove();
@@ -77,7 +90,8 @@ var frontDisplay = function () {
   $("#total").text("$" + total);
 }
 
-
+// make the like to view the 
+// pizza and remove pizza
 var makeLink = function () {
   $(".linkRemove").remove();
  for (var i = 0; i < pie.length; i++) {
@@ -88,16 +102,18 @@ var makeLink = function () {
   
   $(".showData").unbind();
   $(".showData").click(function() {
-    console.log("ININININININININININ")
     at = $(this).val();
     var findTopping = pie[at].toppings;
 
+    // reset the checkbox
     $("input:checkbox").prop('checked',false);
 
     for (var i = 0; i < findTopping.length; i++) {
+      // set checkbox by the topping
       $("input[type=checkbox][value='" + findTopping[i] + "']").prop("checked",true);
     }
 
+    // set the size by the size of the pizza
     $("input[type=radio][value='" + pie[at].size + "']").prop("checked",true);
     $(".make").show();
     frontDisplay();
@@ -105,18 +121,19 @@ var makeLink = function () {
 
   $(".removeData").unbind();
   $(".removeData").click(function() {
+    // set at to know where to remove data
     at = $(this).val();
 
+    // set the unchecked to both checkbox and radio
     $("input:checkbox").prop('checked',false);
-
     $("input:radio").prop("checked",false);
 
+    // remove from the array and delete object
     var data = pie[at];
-
     pie.splice(at, 1);
-
     delete data;
 
+    // call the makeLink to reset the buttons order
     makeLink();
 
     $(".make").hide();
@@ -130,6 +147,7 @@ var makeLink = function () {
 
 $(document).ready(function() {
 
+  // set the add and make object to array. 
   $("#add").click(function() {
     $(".make").show();
     var makePie = new Pizza;
@@ -144,13 +162,17 @@ $(document).ready(function() {
     frontDisplay();
   });
 
-   $("input:radio").click(function() {
+  // when the user click the radio tag
+  // will set the size to the pizza
+  $("input:radio").click(function() {
     if (this.checked) {
       pie[at].size = $(this).val();
       frontDisplay();
     }
   });
 
+  // add and remove topping when the user click
+  // on the checkbox
    $("input:checkbox").click(function() {
     if (this.checked) {
       pie[at].addToppings($(this).val());
