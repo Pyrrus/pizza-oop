@@ -1,4 +1,6 @@
 // Back end
+
+// pizza o
 var Pizza = function () {
   this.size = "";
   this.toppings = [];
@@ -109,7 +111,11 @@ var makeLink = function () {
 
     $("input:radio").prop("checked",false);
 
+    var data = pie[at];
+
     pie.splice(at, 1);
+
+    delete data;
 
     makeLink();
 
