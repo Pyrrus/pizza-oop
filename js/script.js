@@ -18,7 +18,7 @@ Pizza.prototype.display = function() {
 
   output += this.size;
 
-  output += "<br />toppings: " + this.toppings;
+  output += "<br />Toppings: " + this.toppings;
 
   return output;
 }
@@ -54,19 +54,26 @@ Pizza.prototype.addToppings = function(toppings) {
 };
 
 Pizza.prototype.removeToppings = function(toppings) {
+  
   this.toppings = this.toppings.replace(toppings + ",", "");
+
+  if (this.toppings.search(toppings) !== -1) {
+    this.toppings = this.toppings.replace(toppings, "");
+  }
+
+  
 };
 
 var pie = [];
 
-var at = -1;
+var at = 0;
 
 // front end
 
 var frontDisplay = function () {
   var total = 0;
   $(".remove").remove();
-  $(".pizza").text(at + 1);
+  $(".pizza").text((parseInt(at) + 1));
   for (var i = 0; i < pie.length; i++) {
     $("#orderINFO").append("<li class='remove'><h5>Pizza " + (i + 1) 
           + ":</h5>" + pie[i].display() + "</li>");
@@ -75,26 +82,52 @@ var frontDisplay = function () {
   $("#total").text("$" + total);
 }
 
+
 var makeLink = function () {
-  $("#list").append("<li class='linkRemove'><button class='btn btn-info link' value=" 
-    + at + ">Pizza " + (at + 1) + "</button></li>");
+  $(".linkRemove").remove();
+ for (var i = 0; i < pie.length; i++) {
+      $("#list").append("<li class='linkRemove'><button class='btn btn-info showData' value=" 
+        + i + ">Pizza " + (i + 1) + "</button><button class='btn btn-warning removeData' value=" 
+        + i + ">remove Pizza" + (i + 1) + "</button></li>");
+  }
+  
 
-  $(".link").click(function() {
+  $(".showData").unbind();
+  $(".showData").click(function() {
     at = $(this).val();
-
     var findTopping = pie[at].toppings.split(",");
+
+    $("input:checkbox").prop('checked',false);
 
     for (var i = 0; i < findTopping.length; i++) {
       $("input[type=checkbox][value='" + findTopping[i] + "']").prop("checked",true);
     }
 
     $("input[type=radio][value='" + pie[at].size + "']").prop("checked",true);
-
+    $(".make").show();
     frontDisplay();
-
   }); 
 
+  $(".removeData").unbind();
+  $(".removeData").click(function() {
+    at = $(this).val();
+
+    $("input:checkbox").prop('checked',false);
+
+    $("input:radio").prop("checked",false);
+
+    pie.splice(at, 1);
+
+    makeLink();
+
+    $(".make").hide();
+
+    frontDisplay();
+    
+  });
+
 };
+
 
 $(document).ready(function() {
 
@@ -103,8 +136,12 @@ $(document).ready(function() {
     var makePie = new Pizza;
     makePie.size = "small";
     pie.push(makePie);
-    at++;
+
+    at = pie.length - 1;
+    
     makeLink();
+    $("input:checkbox").prop('checked',false);
+    $("input[type=radio][value='small']").prop("checked",true);
     frontDisplay();
   });
 

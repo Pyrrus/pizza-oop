@@ -20,3 +20,15 @@
 .make {
     display: none;
 }
+
+.showData {
+    margin-right: 20px;
+}
+
+#list {
+    list-style-type: none;
+}
+
+#list li {
+    padding-bottom: 20px
+}
