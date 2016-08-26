@@ -1,7 +1,7 @@
 // Back end
 var Pizza = function () {
   this.size = "";
-  this.toppings = "";
+  this.toppings = [];
 };
 
 Pizza.prototype.Total = function() {
@@ -18,7 +18,7 @@ Pizza.prototype.display = function() {
 
   output += this.size;
 
-  output += "<br />Toppings: " + this.toppings;
+  output += "<br />Toppings: " + this.toppings.toString();;
 
   return output;
 }
@@ -37,30 +37,23 @@ Pizza.prototype.sizeCost = function() {
 
 Pizza.prototype.toppingsCost = function() {
 
-  var holder = this.toppings.split(",");
-
-  if (holder.length >= 3) {
-    return (0.50 * (holder.length - 2));
+  if (this.toppings.length >= 3) {
+    return (0.50 * (this.toppings.length - 2));
   } else {
     return 0;
   }
 };
 
 Pizza.prototype.addToppings = function(toppings) {
-    if (this.toppings === "")
-      this.toppings += toppings;
-    else
-      this.toppings += "," + toppings;
+    this.toppings.push(toppings);
 };
 
 Pizza.prototype.removeToppings = function(toppings) {
-  
-  this.toppings = this.toppings.replace(toppings + ",", "");
-
-  if (this.toppings.search(toppings) !== -1) {
-    this.toppings = this.toppings.replace(toppings, "");
+  for (var i = 0; i < this.toppings.length; i++) {
+    if (this.toppings[i] === toppings) {
+      this.toppings.splice(i, 1);
+    }
   }
-
   
 };
 
