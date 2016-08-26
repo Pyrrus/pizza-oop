@@ -1,7 +1,6 @@
 // Back end
-
 // pizza object
-var Pizza = function () {
+var Pizza = function() {
   this.size = "";
   this.toppings = [];
 };
@@ -38,7 +37,7 @@ Pizza.prototype.sizeCost = function() {
   } else {
     return 12;
   }
-  
+
 };
 
 // return the cost of the toppings cost.
@@ -53,7 +52,7 @@ Pizza.prototype.toppingsCost = function() {
 
 // add topping 
 Pizza.prototype.addToppings = function(toppings) {
-    this.toppings.push(toppings);
+  this.toppings.push(toppings);
 };
 
 // remove topping 
@@ -63,7 +62,7 @@ Pizza.prototype.removeToppings = function(toppings) {
       this.toppings.splice(i, 1);
     }
   }
-  
+
 };
 
 // set goble array to help keep track
@@ -78,13 +77,13 @@ var at = 0;
 
 // make the display to edit the front end 
 // with data
-var frontDisplay = function () {
+var frontDisplay = function() {
   var total = 0;
   $(".remove").remove();
   $(".pizza").text((parseInt(at) + 1));
   for (var i = 0; i < pie.length; i++) {
-    $("#orderINFO").append("<li class='remove'><h5>Pizza " + (i + 1) 
-          + ":</h5>" + pie[i].display() + "</li>");
+    $("#orderINFO").append("<li class='remove'><h5>Pizza " + (i + 1) +
+      ":</h5>" + pie[i].display() + "</li>");
     total += pie[i].Total();
   }
   $("#total").text("$" + total);
@@ -92,32 +91,32 @@ var frontDisplay = function () {
 
 // make the like to view the 
 // pizza and remove pizza
-var makeLink = function () {
+var makeLink = function() {
   $(".linkRemove").remove();
- for (var i = 0; i < pie.length; i++) {
-      $("#list").append("<li class='linkRemove'><button class='btn btn-info showData' value=" 
-        + i + ">Pizza " + (i + 1) + "</button><button class='btn btn-warning removeData' value=" 
-        + i + ">remove Pizza" + (i + 1) + "</button></li>");
+  for (var i = 0; i < pie.length; i++) {
+    $("#list").append("<li class='linkRemove'><button class='btn btn-info showData' value=" +
+      i + ">Pizza " + (i + 1) + "</button><button class='btn btn-warning removeData' value=" +
+      i + ">remove Pizza" + (i + 1) + "</button></li>");
   }
-  
+
   $(".showData").unbind();
   $(".showData").click(function() {
     at = $(this).val();
     var findTopping = pie[at].toppings;
 
     // reset the checkbox
-    $("input:checkbox").prop('checked',false);
+    $("input:checkbox").prop('checked', false);
 
     for (var i = 0; i < findTopping.length; i++) {
       // set checkbox by the topping
-      $("input[type=checkbox][value='" + findTopping[i] + "']").prop("checked",true);
+      $("input[type=checkbox][value='" + findTopping[i] + "']").prop("checked", true);
     }
 
     // set the size by the size of the pizza
-    $("input[type=radio][value='" + pie[at].size + "']").prop("checked",true);
+    $("input[type=radio][value='" + pie[at].size + "']").prop("checked", true);
     $(".make").show();
     frontDisplay();
-  }); 
+  });
 
   $(".removeData").unbind();
   $(".removeData").click(function() {
@@ -125,8 +124,8 @@ var makeLink = function () {
     at = $(this).val();
 
     // set the unchecked to both checkbox and radio
-    $("input:checkbox").prop('checked',false);
-    $("input:radio").prop("checked",false);
+    $("input:checkbox").prop('checked', false);
+    $("input:radio").prop("checked", false);
 
     // remove from the array and delete object
     var data = pie[at];
@@ -137,28 +136,23 @@ var makeLink = function () {
     makeLink();
 
     $(".make").hide();
-
     frontDisplay();
-    
   });
 
 };
 
-
 $(document).ready(function() {
-
   // set the add and make object to array. 
   $("#add").click(function() {
     $(".make").show();
     var makePie = new Pizza;
     makePie.size = "small";
     pie.push(makePie);
-
     at = pie.length - 1;
-    
+    // make the view and remove button
     makeLink();
-    $("input:checkbox").prop('checked',false);
-    $("input[type=radio][value='small']").prop("checked",true);
+    $("input:checkbox").prop('checked', false);
+    $("input[type=radio][value='small']").prop("checked", true);
     frontDisplay();
   });
 
@@ -173,7 +167,7 @@ $(document).ready(function() {
 
   // add and remove topping when the user click
   // on the checkbox
-   $("input:checkbox").click(function() {
+  $("input:checkbox").click(function() {
     if (this.checked) {
       pie[at].addToppings($(this).val());
     } else {

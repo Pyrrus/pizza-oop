@@ -1,111 +1,104 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <title>Pizza order</title>
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
-  <link rel="stylesheet" type="text/css" href="css/style.css">
-  <script type="text/javascript" src="js/jquery.js"></script>
-  <script type="text/javascript" src="js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="js/script.js"></script>
-</head>
-
-<body>
-
-  <div class="container">
-    <div class="jumbotron">
-      <h1>Pizza order</h1>
-    </div>
-
-    <div class="row">
-      <div class="col-md-3 center">
-        <h2>Make Order</h2>
-        <button type="button" class="btn btn-primary" id="add">Add Pizza</button>
-        <hr />
-        <ul id="list"></ul>
-        <hr />
+  <head>
+    <title>Pizza order</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <!-- header -->
+      <div class="jumbotron">
+        <h1>Pizza order</h1>
       </div>
-
-      <div class="col-md-9">
-        <div class="row">
-          <div class="col-md-4 make">
-          <h3>Size for the Pizza <span class="pizza"></span></h3>
-            <div class="radio">
-              <label><input type="radio" name="pizzaSize" value="small" checked>Small</label>
+      <!-- end header -->
+      <!-- row -->
+      <div class="row">
+        <!-- make pizza and remove -->
+        <div class="col-md-3 center">
+          <h2>Make Order</h2>
+          <button type="button" class="btn btn-primary" id="add">Add Pizza</button>
+          <hr />
+          <ul id="list"></ul>
+          <hr />
+        </div>
+        <!-- end make pizza and remove -->
+        <div class="col-md-9">
+          <div class="row">
+            <!-- size of pizza -->
+            <div class="col-md-4 make">
+              <h3>Size for the Pizza <span class="pizza"></span></h3>
+              <div class="radio">
+                <label><input type="radio" name="pizzaSize" value="small" checked>Small</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="pizzaSize" value="medium">Medium</label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" name="pizzaSize" value="large">Large</label>
+              </div>
             </div>
-            <div class="radio">
-              <label><input type="radio" name="pizzaSize" value="medium">Medium</label>
+            <!-- end of the size for the pizza -->
+            <!-- topping -->
+            <div class="col-md-4 make">
+              <h3>Pizza <span class="pizza"></span> Topping: first two will be free, and more then two topping will cost $.50 each</h3>
+              <div class="checkbox">
+                <label><input type="checkbox" value="Monterey Jack">Monterey Jack</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="Smoked Gouda">Smoked Gouda</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="Pepperoni">Pepperoni</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="Mushrooms">Mushrooms</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="Onions">Onions</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="Sausage">Sausage</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="Bacon">Bacon</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="Black olives">Black olives</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="Green peppers">Green peppers</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="Pineapple">Pineapple</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="Spinach">Spinach</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="Lobster">Lobster</label>
+              </div>
+              <div class="checkbox">
+                <label><input type="checkbox" value="Ham">Ham</label>
+              </div>
             </div>
-            <div class="radio">
-              <label><input type="radio" name="pizzaSize" value="large">Large</label>
+            <!-- end topping -->
+            <!-- checkout -->
+            <div class="col-md-4 checkout">
+              <ul id="orderINFO">
+              </ul>
+              <p id="total"></p>
+              <hr />
             </div>
-            
-          </div>
-          <div class="col-md-4 make">
-            <h3>Pizza <span class="pizza"></span> Topping: first two will be free, and more then two topping will cost $.50 each</h3>
-            <div class="checkbox">
-              <label><input type="checkbox" value="Monterey Jack">Monterey Jack</label>
-            </div>
-            <div class="checkbox">
-              <label><input type="checkbox" value="Smoked Gouda">Smoked Gouda</label>
-            </div>
-            <div class="checkbox">
-              <label><input type="checkbox" value="Pepperoni">Pepperoni</label>
-            </div>
-            <div class="checkbox">
-              <label><input type="checkbox" value="Mushrooms">Mushrooms</label>
-            </div>
-
-            <div class="checkbox">
-              <label><input type="checkbox" value="Onions">Onions</label>
-            </div>
-
-            <div class="checkbox">
-              <label><input type="checkbox" value="Sausage">Sausage</label>
-            </div>
-
-            <div class="checkbox">
-              <label><input type="checkbox" value="Bacon">Bacon</label>
-            </div>
-
-            <div class="checkbox">
-              <label><input type="checkbox" value="Black olives">Black olives</label>
-            </div>
-
-            <div class="checkbox">
-              <label><input type="checkbox" value="Green peppers">Green peppers</label>
-            </div>
-
-            <div class="checkbox">
-              <label><input type="checkbox" value="Pineapple">Pineapple</label>
-            </div>
-
-            <div class="checkbox">
-              <label><input type="checkbox" value="Spinach">Spinach</label>
-            </div>
-
-            <div class="checkbox">
-              <label><input type="checkbox" value="Lobster">Lobster</label>
-            </div>
-
-            <div class="checkbox">
-              <label><input type="checkbox" value="Ham">Ham</label>
-            </div>
-            
-          </div>
-          <div class="col-md-4 checkout">
-            <ul id="orderINFO">
-            </ul>
-            <p id="total"></p>
-            <hr />
-            
+            <!-- end checkout -->
           </div>
         </div>
       </div>
+      <!-- end row -->
     </div>
-  </div>
-
-</body>
-
+  </body>
 </html>
