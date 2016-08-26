@@ -1,0 +1,18 @@
+.jumbotron {
+    background-image: url("../img/pizzaBG.png");
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.jumbotron h1 {
+    background: silver;
+    width: 50%;
+    text-align: center;
+}
+
+.center {
+    text-align: center;
+}
