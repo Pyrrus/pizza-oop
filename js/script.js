@@ -84,11 +84,11 @@ var makeLink = function () {
         + i + ">remove Pizza" + (i + 1) + "</button></li>");
   }
   
-
   $(".showData").unbind();
   $(".showData").click(function() {
+    console.log("ININININININININININ")
     at = $(this).val();
-    var findTopping = pie[at].toppings.split(",");
+    var findTopping = pie[at].toppings;
 
     $("input:checkbox").prop('checked',false);
 
