@@ -1,7 +1,7 @@
 // Back end
 var Pizza = function () {
   this.size = "";
-  this.toppings = [];
+  this.toppings = "";
 };
 
 Pizza.prototype.Total = function() {
@@ -18,9 +18,7 @@ Pizza.prototype.display = function() {
 
   output += this.size;
 
-  output += "<br />toppings: ";
-
-  output += this.toppings.toString()
+  output += "<br />toppings: " + this.toppings;
 
   return output;
 }
@@ -38,7 +36,12 @@ Pizza.prototype.sizeCost = function() {
 };
 
 Pizza.prototype.toppingsCost = function() {
-  if (this.toppings.length >= 3) {
+
+  var holder = this.toppings.split(",");
+
+  console.log(holder);
+
+  if (holder.length >= 3) {
     return (.50 * (this.length - 2))
   } else {
     return 0;
@@ -46,37 +49,55 @@ Pizza.prototype.toppingsCost = function() {
 };
 
 Pizza.prototype.addToppings = function(toppings) {
-  this.toppings.push(toppings);
+    this.toppings += toppings + ",";
 };
 
 Pizza.prototype.removeToppings = function(toppings) {
-
+  this.toppings = this.toppings.replace(toppings + ",", "");
 };
 
 var pie = [];
 
-var at = 0;
+var at = -1;
 
 // front end
+
+var frontDisplay = function () {
+  var total = 0;
+  $(".remove").remove();
+  for (var i = 0; i < pie.length; i++) {
+        $("#orderINFO").append("<li class='remove'><h5>Pizza " + (i + 1) + ":</h5>" + pie[i].display() + "</li>");
+        total += pie[i].Total();
+  }
+  $("#total").text("$" + total);
+}
+
 $(document).ready(function() {
 
   $("#add").click(function() {
     $(".make").show();
     var makePie = new Pizza;
     makePie.size = "small";
-    makePie.addToppings("Monterey Jack");
-    var total = 0;
     pie.push(makePie);
-    $(".remove").remove();
-    for (var i = 0; i < pie.length; i++) {
-      $("#orderINFO").append("<li class='remove'><h5>Pizza " + (i + 1) + ":</h5>" + pie[i].display() + "</li>");
-      total += pie[i].Total();
+    frontDisplay();
+    at++;
+  });
+
+   $("input:radio").click(function() {
+    if (this.checked) {
+      pie[at].size = $(this).val();
+      frontDisplay();
+    }
+  });
+
+   $("input:checkbox").click(function() {
+    if (this.checked) {
+      pie[at].addToppings($(this).val());
+    } else {
+      pie[at].removeToppings($(this).val());
     }
 
-    at++;
-
-    $("#total").text("$" + total);
-    
+    frontDisplay();
   });
  
 
